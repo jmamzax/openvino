@@ -28,6 +28,11 @@ add_library(${TARGET_NAME}
     $<TARGET_OBJECTS:inference_engine_lp_transformations_obj>)
 
 add_library(openvino::runtime ALIAS ${TARGET_NAME})
+
+if(WIN32)
+    set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME ${TARGET_NAME}_preproc)
+endif()
+
 set_target_properties(${TARGET_NAME} PROPERTIES EXPORT_NAME runtime)
 
 ov_add_vs_version_file(NAME ${TARGET_NAME} FILEDESCRIPTION "OpenVINO runtime library")
@@ -61,6 +66,7 @@ endif()
 
 if(WIN32)
     set_target_properties(${TARGET_NAME} PROPERTIES COMPILE_PDB_NAME ${TARGET_NAME})
+    target_link_options(${TARGET_NAME} PRIVATE /PDBALTPATH:$<TARGET_PDB_FILE_NAME:${TARGET_NAME}>)
 endif()
 
 set_ie_threading_interface_for(${TARGET_NAME})
