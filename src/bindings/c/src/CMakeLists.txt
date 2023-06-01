@@ -16,6 +16,11 @@ file(GLOB_RECURSE HEADERS ${OpenVINO_C_API_SOURCE_DIR}/include/openvino/*.h)
 add_library(${TARGET_NAME} ${LEGACY_HEADERS} ${HEADERS} ${SOURCES})
 add_library(openvino::runtime::c ALIAS ${TARGET_NAME})
 
+if(WIN32)
+    set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME ${TARGET_NAME}_preproc)
+    target_link_options(${TARGET_NAME} PRIVATE /PDBALTPATH:$<TARGET_PDB_FILE_NAME:${TARGET_NAME}>)
+endif()
+
 target_link_libraries(${TARGET_NAME} PRIVATE openvino openvino::util)
 
 target_include_directories(${TARGET_NAME} PUBLIC

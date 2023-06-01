@@ -90,6 +90,7 @@ function(ov_add_plugin)
 
         if(WIN32)
             set_target_properties(${OV_PLUGIN_NAME} PROPERTIES COMPILE_PDB_NAME ${OV_PLUGIN_NAME})
+            target_link_options(${OV_PLUGIN_NAME} PRIVATE /PDBALTPATH:$<TARGET_PDB_FILE_NAME:${OV_PLUGIN_NAME}>)
         endif()
 
         if(CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_CROSSCOMPILING)
