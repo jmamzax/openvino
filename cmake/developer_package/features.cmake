@@ -28,7 +28,7 @@ ov_option (CMAKE_COMPILE_WARNING_AS_ERROR "Enable warnings as errors" ${CMAKE_CO
 
 ov_dependent_option (ENABLE_QSPECTRE "Enable Qspectre mitigation" OFF "CMAKE_CXX_COMPILER_ID STREQUAL MSVC" OFF)
 
-ov_dependent_option (ENABLE_INTEGRITYCHECK "build DLLs with /INTEGRITYCHECK flag" OFF "CMAKE_CXX_COMPILER_ID STREQUAL MSVC" OFF)
+ov_dependent_option (ENABLE_INTEGRITYCHECK "build DLLs with /INTEGRITYCHECK flag" OFF "${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC" OFF)
 
 ov_option (ENABLE_SANITIZER "enable checking memory errors via AddressSanitizer" OFF)
 
